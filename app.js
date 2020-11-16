@@ -1,16 +1,20 @@
 const express = require('express');
 const app = express();
 
+app.set('view engine', 'ejs');
+
 app.get('/', function(req, res) {
-    res.send('hello, from express');
+    res.render('index', { myVar: 'ahhh'});
 });
 
 app.get('/about', function(req, res) {
-    res.send('this is the about page');
+    res.render('about');
 });
 
-app.get('/blog', (req, res) => {
-    res.send('Welcome to my blog');
+app.get('/blog/:date', (req, res) => {
+    res.render('blog', { date: req.params.date });
 });
 
-app.listen(8000);
+app.listen(8000, () => {
+    console.log('server started');
+});
